@@ -82,10 +82,13 @@
   </build>
 </project>
 
+
 package com.github.finder;
 
 import java.util.Iterator;
 import java.util.List;
+import java.io.File;
+import java.util.ArrayList;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
@@ -145,5 +148,36 @@ public class Main{
 
     public static void main(String[] args){
         new Main(args);
+    }
+}
+
+public class Finder {
+    private Args args;
+
+    public Finder(Args args){
+        this.args = args;
+    }
+
+    public String[] find(String target){
+        List<String> list = new ArrayList<>();
+
+        traverse(list, new File(target));
+
+        return list.toArray(new String[list.size()]);
+    }
+
+    private boolean isTarget(File file){
+        return true;
+    }
+
+    private void traverse(List<String> list, File dir){
+        if(isTarget(dir)){
+            list.add(dir.getPath());
+        }
+        if(dir.isDirectory()){
+            for(File file: dir.listFiles()){
+                traverse(list, file);
+            }
+        }
     }
 }
