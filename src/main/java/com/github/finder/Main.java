@@ -127,6 +127,18 @@ public class Args implements Iterable<String>{
         return grep;
     }
 }
+
+  private Args parseArguments(String[] arguments){
+        Args args = new Args();
+        try {
+            CmdLineParser parser = new CmdLineParser(args);
+            parser.parseArgument(arguments);
+        } catch (CmdLineException e) {
+        }
+        return args;
+    }
+    
+
 public class Main{
     public Main(String[] arguments){
     }
